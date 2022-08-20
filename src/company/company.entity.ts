@@ -8,4 +8,10 @@ export class Company {
     @Column()
     companyName: string;
 
+    @Column()
+    country: string;
+
+    @Column()
+    region: string;
+
 }
