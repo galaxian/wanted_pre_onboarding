@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Company } from "src/company/company.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class post {
+export class Post {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -16,5 +17,8 @@ export class post {
 
     @Column()
     language: string;
+
+    @ManyToOne(type => Company, company => company.posts, {eager: false})
+    company: Company;
 
 }

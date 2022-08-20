@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Post } from "src/post/post.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Company {
@@ -13,5 +14,8 @@ export class Company {
 
     @Column()
     region: string;
+
+    @OneToMany(type => Post, post => post.company, {eager: true})
+    posts: Post[]
 
 }
