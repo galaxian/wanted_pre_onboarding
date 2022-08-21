@@ -51,6 +51,8 @@ url querystring으로 삭제할 채용공고 id를 받아온다
 
 채용공고가 없을 경우는 notfoundexception을 발생시킨다.
 
+-------------------
+
 - 채용공고 목록 조회
 reponserdto
 ```json
@@ -69,7 +71,34 @@ typeorm의 find() 메서드를 사용해 db에 저장된 채용공고를 모두 
 
 posts entity가 아닌 Dto를 리턴한다.
 
+------------
+
 - 채용공고 검색
+
+reponserdto
+```json
+{
+    'id': 채용공고 pk
+    'position': 채용포지션,
+    'price': 채용보상금,
+    'language': 사용언어
+    'company': Company entity
+}
+```
+
+url querystring으로 검색할 검색어를 입력받는다.
+
+검색 조건이 여러개 이므로 query builder를 사용해 query를 구현
+
+검색 대상이 posts entity 및 연관관계인 company entity이므로 innerjoin을 사용해 posts 및 company를 한번에 조회
+
+검색이 필요한 요소들에 where절 및 like 문을 사용하여 db에서 일치하면 조회
+
+entity를 dto로 변환하여 response로 리턴한다. 
+
+----------------
+
+- 채용 상세 페이지 조회
 
 url querystring으로 조회할 채용공고 id를 입력받는다.
 
@@ -77,6 +106,6 @@ typeorm의 findOneBy({id) 메서드를 사용해 db에 저장된 id의 채용공
 
 채용공고가 존재하지 않을 시 notfoundexception을 발생시킨다.
 
-- 채용 상세 페이지 조회
+------------
 
 - 채용공고 지원
