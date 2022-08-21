@@ -71,6 +71,12 @@ posts entity가 아닌 Dto를 리턴한다.
 
 - 채용공고 검색
 
+url querystring으로 조회할 채용공고 id를 입력받는다.
+
+typeorm의 findOneBy({id) 메서드를 사용해 db에 저장된 id의 채용공고를 조회한다.
+
+채용공고가 존재하지 않을 시 notfoundexception을 발생시킨다.
+
 - 채용 상세 페이지 조회
 
 - 채용공고 지원
