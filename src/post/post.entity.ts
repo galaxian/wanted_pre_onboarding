@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Company } from "src/company/company.entity";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Posts extends BaseEntity {
@@ -17,7 +18,7 @@ export class Posts extends BaseEntity {
     @Column()
     language: string;
 
-    @Column()
-    companyName: string;
+    @ManyToOne(type => Company, company => company.posts, {eager: true})
+    company: Company;
 
 }
