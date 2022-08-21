@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyService } from 'src/company/company.service';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/createPost.dto';
+import { GetDetailPostDto } from './dto/getDetailPostDto';
 import { GetPostDto } from './dto/getPostDto';
 import { UpdatePostDto } from './dto/updatePost.dto';
 import { Posts } from './post.entity';
@@ -76,14 +77,31 @@ export class PostService {
         return dtos;
     }
 
-    async getPost(id: number): Promise<Posts>{
+    async getPost(id: number): Promise<GetDetailPostDto>{
         const found = await this.postRepository.findOneBy({id});
 
         if(!found) {
             throw new NotFoundException(`${id}번 채용공고가 존재하지 않습니다.`);
         }
 
-        return found;
+        const companyId = found.company.id;
+
+        const builder = this.postRepository
+        .createQueryBuilder("posts")
+        .innerJoinAndSelect("posts.company", "c")
+        .where("c.id =:companyId", {companyId: `${companyId}`})
+        .andWhere("posts.id !=:postId", {postId: id});
+
+        const postList = await builder.getMany();
+        const postIdList = []
+
+        for (const post of postList) {
+            postIdList.push(post.id);
+        }
+
+        const dto = found.toDetailPostDto(postIdList);
+
+        return dto;
     }
 
     async searchPosts(word: string): Promise<GetPostDto[]> {

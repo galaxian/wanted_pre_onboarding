@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreatePostDto } from './dto/createPost.dto';
+import { GetDetailPostDto } from './dto/getDetailPostDto';
 import { GetPostDto } from './dto/getPostDto';
 import { UpdatePostDto } from './dto/updatePost.dto';
 import { Posts } from './post.entity';
@@ -30,7 +31,7 @@ export class PostController {
     }
 
     @Get("/:id")
-    getPost(@Param("id") id: number): Promise<Posts> {
+    getPost(@Param("id") id: number): Promise<GetDetailPostDto> {
         return this.postService.getPost(id);
     }
 
