@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreatePostDto } from './dto/createPost.dto';
+import { GetPostDto } from './dto/getPostDto';
 import { UpdatePostDto } from './dto/updatePost.dto';
 import { Posts } from './post.entity';
 import { PostService } from './post.service';
@@ -24,7 +25,7 @@ export class PostController {
     }
 
     @Get()
-    getAllPosts(): Promise<Posts[]> {
+    getAllPosts(): Promise<GetPostDto[]> {
         return this.postService.getAllPosts();
     }
 }

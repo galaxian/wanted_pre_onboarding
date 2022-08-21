@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyService } from 'src/company/company.service';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/createPost.dto';
+import { GetPostDto } from './dto/getPostDto';
 import { UpdatePostDto } from './dto/updatePost.dto';
 import { Posts } from './post.entity';
 
@@ -63,7 +64,15 @@ export class PostService {
         }
     }
 
-    async getAllPosts(): Promise<Posts[]> {
-        return await this.postRepository.find();
+    async getAllPosts(): Promise<GetPostDto[]> {
+        const posts = await this.postRepository.find();
+        
+        const dtos = []
+
+        for(const post of posts) {
+            dtos.push(post.toGetPostDto())
+        }
+
+        return dtos;
     }
 }
