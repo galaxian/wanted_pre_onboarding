@@ -75,4 +75,14 @@ export class PostService {
 
         return dtos;
     }
+
+    async getPost(id: number): Promise<Posts>{
+        const found = await this.postRepository.findOneBy({id});
+
+        if(!found) {
+            throw new NotFoundException(`${id}번 채용공고가 존재하지 않습니다.`);
+        }
+
+        return found;
+    }
 }

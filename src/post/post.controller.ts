@@ -28,4 +28,9 @@ export class PostController {
     getAllPosts(): Promise<GetPostDto[]> {
         return this.postService.getAllPosts();
     }
+
+    @Get("/:id")
+    getPost(@Param("id") id: number): Promise<Posts> {
+        return this.postService.getPost(id);
+    }
 }
