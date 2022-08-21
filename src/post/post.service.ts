@@ -50,4 +50,12 @@ export class PostService {
 
         return found;
     }
+
+    async deletePost(id: number): Promise<void> {
+        const posts = await this.postRepository.delete(id);
+
+        if(posts.affected === 0) {
+            throw new NotFoundException(`${id}번 채용공고가 존재하지 않습니다.`);
+        }
+    }
 }
