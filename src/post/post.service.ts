@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/createPost.dto';
+import { UpdatePostDto } from './dto/updatePost.dto';
 import { Posts } from './post.entity';
 
 @Injectable()
@@ -25,5 +26,28 @@ export class PostService {
 
         await this.postRepository.save(posts);
         return posts;
+    }
+
+    async updatePost(id: number, updatePostDto: UpdatePostDto): Promise<Posts> {
+        const posts = await this.getPostById(id);
+
+        posts.position = updatePostDto.position;
+        posts.price = updatePostDto.price;
+        posts.content = updatePostDto.content;
+        posts.language = updatePostDto.language;
+
+        await this.postRepository.save(posts);
+
+        return posts
+    }
+
+    async getPostById(id: number): Promise<Posts> {
+        const found = await this.postRepository.findOneBy({id});
+
+        if(!found) {
+            throw new NotFoundException(`${id}번 채용공고가 존재하지 않습니다.`);
+        }
+
+        return found;
     }
 }
