@@ -62,4 +62,8 @@ export class PostService {
             throw new NotFoundException(`${id}번 채용공고가 존재하지 않습니다.`);
         }
     }
+
+    async getAllPosts(): Promise<Posts[]> {
+        return await this.postRepository.find();
+    }
 }
