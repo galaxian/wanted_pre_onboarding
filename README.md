@@ -39,6 +39,12 @@ url querystring으로 채용공고 id를 받고, requestDto를 통해 수정에 
 ------
 - 채용공고 삭제
 
+url querystring으로 삭제할 채용공고 id를 받아온다
+
+채용공고 id를 이용하여 typeorm의 delete 메서드를 사용해 db에서 채용공고를 삭제한다.
+
+채용공고가 없을 경우는 notfoundexception을 발생시킨다.
+
 - 채용공고 목록 조회
 
 - 채용공고 검색
