@@ -14,7 +14,13 @@ requestdto
     'language': 사용언어
 }
 ```
-dto를 통하여 채용공고에 필요한 request를 받은 뒤 dto를 post entitiy로 변환하여 typeorm의 save 메서드를 사용하여 db에 저장하도록 구현
+dto를 통하여 채용공고에 필요한 request를 입력 받는다.
+
+dto의 companyName을 통해 db에서 회사 정보를 조회한다.
+
+회사 정보가 없을 시 notfoundexception을 발생시킨다.
+
+dto의 채용공고 정보와 조회한 회사 정보를 post entitiy로 변환하여 typeorm의 save 메서드를 사용하여 db에 저장한다.
 
 -------------------
 - 채용공고 수정
