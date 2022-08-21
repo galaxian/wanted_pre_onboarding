@@ -52,6 +52,16 @@ url querystring으로 삭제할 채용공고 id를 받아온다
 채용공고가 없을 경우는 notfoundexception을 발생시킨다.
 
 - 채용공고 목록 조회
+reponserdto
+```json
+{
+    'id': 채용공고 pk
+    'position': 채용포지션,
+    'price': 채용보상금,
+    'language': 사용언어
+    'company': Company entity
+}
+```
 
 typeorm의 find() 메서드를 사용해 db에 저장된 채용공고를 모두 조회한다.
 
