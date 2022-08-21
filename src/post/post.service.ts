@@ -85,4 +85,26 @@ export class PostService {
 
         return found;
     }
+
+    async searchPosts(word: string): Promise<GetPostDto[]> {
+        const builder = this.postRepository
+        .createQueryBuilder("posts")
+        .innerJoinAndSelect("posts.company","c")
+        .where("posts.position like :word", {word : `%${word}%`})
+        .orWhere("posts.content like :word", {word : `%${word}%`})
+        .orWhere("posts.language like :word", {word : `%${word}%`})
+        .orWhere("c.companyName like :word", {word : `%${word}%`})
+        .orWhere("c.country like :word", {word : `%${word}%`})
+        .orWhere("c.region like :word", {word : `%${word}%`});
+
+        const founds = await builder.getMany();
+
+        const dtos = []
+
+        for (const post of founds) {
+            dtos.push(post.toGetPostDto())
+        }
+
+        return dtos;
+    }
 }

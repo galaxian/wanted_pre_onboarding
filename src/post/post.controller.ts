@@ -33,4 +33,9 @@ export class PostController {
     getPost(@Param("id") id: number): Promise<Posts> {
         return this.postService.getPost(id);
     }
+
+    @Get("/search/:word")
+    searchPosts(@Param("word") word: string): Promise<GetPostDto[]> {
+        return this.postService.searchPosts(word);
+    }
 }
