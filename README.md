@@ -55,6 +55,10 @@ url querystring으로 삭제할 채용공고 id를 받아온다
 
 typeorm의 find() 메서드를 사용해 db에 저장된 채용공고를 모두 조회한다.
 
+조회한 posts 배열을 for문을 사용해 toDto 메서드를 사용해 getPostDto로 변환한다.
+
+posts entity가 아닌 Dto를 리턴한다.
+
 - 채용공고 검색
 
 - 채용 상세 페이지 조회
