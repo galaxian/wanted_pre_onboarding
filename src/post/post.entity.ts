@@ -1,5 +1,6 @@
 import { Company } from "src/company/company.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { GetPostDto } from "./dto/getPostDto";
 
 @Entity()
 export class Posts extends BaseEntity {
@@ -20,5 +21,15 @@ export class Posts extends BaseEntity {
 
     @ManyToOne(type => Company, company => company.posts, {eager: true})
     company: Company;
+
+    toGetPostDto(): GetPostDto {
+        const dto = new GetPostDto();
+        dto.company = this.company;
+        dto.id = this.id;
+        dto.position = this.position;
+        dto.price = this.price;
+        dto.language = this.language;
+        return dto
+    }
 
 }
