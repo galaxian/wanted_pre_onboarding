@@ -1,5 +1,6 @@
 import { Company } from "src/company/company.entity";
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { UserPost } from "src/user-post/user-post.entity";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { GetDetailPostDto } from "./dto/getDetailPostDto";
 import { GetPostDto } from "./dto/getPostDto";
 
@@ -22,6 +23,9 @@ export class Posts extends BaseEntity {
 
     @ManyToOne(type => Company, company => company.posts, {eager: true})
     company: Company;
+
+    @OneToMany(type => UserPost, userPost => userPost.posts, {eager: false})
+    userPost: UserPost[];
 
     toGetPostDto(): GetPostDto {
         const dto = new GetPostDto();
