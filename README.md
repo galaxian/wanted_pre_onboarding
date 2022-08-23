@@ -109,3 +109,18 @@ typeorm의 findOneBy({id) 메서드를 사용해 db에 저장된 id의 채용공
 ------------
 
 - 채용공고 지원
+requestdto
+```json
+{
+    'userId': 유저_Id
+    'postId': 채용공고_Id,
+}
+```
+
+채용공고에 지원하는 것은 user와 posts 간 manyToMany 관계라고 생각했기 때문에 지원에 대한 UserPost 엔티티를 통해 ManyToOne으로 설정했다.
+
+dto를 통해 userId와 postId를 받는다.
+
+userId로 db에서 user를 조회하고, postId로 db에서 채용공고를 조회한다.
+
+조회한 user와 post를 사용해 userPost 엔티티를 생성한 후 DB에 저장한다.
