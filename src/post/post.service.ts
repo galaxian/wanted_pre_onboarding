@@ -30,8 +30,7 @@ export class PostService {
             company
         })
 
-        await this.postRepository.save(posts);
-        return posts;
+        return await this.postRepository.save(posts);
     }
 
     async updatePost(id: number, updatePostDto: UpdatePostDto): Promise<Posts> {
