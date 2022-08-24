@@ -1,3 +1,4 @@
+import { IsNumber, IsString } from "class-validator";
 import { Company } from "src/company/company.entity";
 import { UserPost } from "src/user-post/user-post.entity";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -7,18 +8,23 @@ import { GetPostDto } from "./dto/getPostDto";
 @Entity()
 export class Posts extends BaseEntity {
     @PrimaryGeneratedColumn()
+    @IsNumber()
     id: number;
 
     @Column()
+    @IsString()
     position: string;
 
     @Column()
+    @IsNumber()
     price: number;
 
     @Column()
+    @IsString()
     content: string;
 
     @Column()
+    @IsString()
     language: string;
 
     @ManyToOne(type => Company, company => company.posts, {eager: true})

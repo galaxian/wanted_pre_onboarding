@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreatePostDto } from './dto/createPost.dto';
 import { GetDetailPostDto } from './dto/getDetailPostDto';
 import { GetPostDto } from './dto/getPostDto';
@@ -11,17 +11,19 @@ export class PostController {
     constructor(private postService: PostService) {}
 
     @Post()
+    @UsePipes(ValidationPipe)
     createPost(@Body() createPostDto: CreatePostDto): Promise <Posts> {
         return this.postService.createPost(createPostDto)
     }
 
     @Patch("/:id")
+    @UsePipes(ValidationPipe)
     updatePost(@Param("id") id: number , @Body() updatePostDto: UpdatePostDto): Promise <Posts> {
         return this.postService.updatePost(id, updatePostDto)
     }
 
     @Delete("/:id")
-    deletePost(@Param("id") id: number): Promise<void> {
+    deletePost(@Param("id", ParseIntPipe) id: number): Promise<void> {
         return this.postService.deletePost(id);
     }
 
@@ -31,7 +33,7 @@ export class PostController {
     }
 
     @Get("/:id")
-    getPost(@Param("id") id: number): Promise<GetDetailPostDto> {
+    getPost(@Param("id", ParseIntPipe) id: number): Promise<GetDetailPostDto> {
         return this.postService.getPost(id);
     }
 
